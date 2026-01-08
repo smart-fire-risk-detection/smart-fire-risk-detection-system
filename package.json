@@ -1,0 +1,15 @@
+{
+  "name": "smart-fire-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "vercel dev",
+    "dev": "vercel dev",
+    "build": "cd emberguard-dash-main && npm run build",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "vite": "^7.1.9"
+  }
+}

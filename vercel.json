@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/updateData.js", "use": "@vercel/node" },
+    { "src": "api/update.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/updateData", "dest": "/api/updateData.js" },
+    { "src": "/api/update", "dest": "/api/update.js" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/" }
+  ],
+  "devCommand": "npx vite --port $PORT"
+}

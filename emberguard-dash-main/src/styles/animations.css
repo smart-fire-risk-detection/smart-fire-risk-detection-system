@@ -1,0 +1,44 @@
+/* Custom animations for the EmberGuard dashboard */
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+.fire-risk-pulse {
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+/* Gradient transitions */
+.sensor-card {
+  transition: all 0.3s ease-in-out;
+}
+
+.sensor-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* Ember effect for fire icon */
+@keyframes ember {
+  0% {
+    filter: drop-shadow(0 0 2px rgba(255, 100, 50, 0.8));
+  }
+  50% {
+    filter: drop-shadow(0 0 8px rgba(255, 100, 50, 0.9));
+  }
+  100% {
+    filter: drop-shadow(0 0 2px rgba(255, 100, 50, 0.8));
+  }
+}
+
+.ember-glow {
+  animation: ember 3s infinite ease-in-out;
+}

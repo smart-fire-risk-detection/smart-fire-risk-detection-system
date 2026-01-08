@@ -1,0 +1,498 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Environmental Fire Risk Detection System Design System
+All colors MUST be HSL. Nature-inspired environmental monitoring theme with fire detection.
+*/
+
+@layer base {
+  :root {
+    /* Environmental dark theme with green accents */
+    --background: 150 15% 8%;
+    --foreground: 150 10% 98%;
+
+    --card: 150 12% 12%;
+    --card-foreground: 150 10% 98%;
+
+    --popover: 150 12% 12%;
+    --popover-foreground: 150 10% 98%;
+
+    --primary: 142 70% 45%;
+    --primary-foreground: 150 10% 98%;
+
+    --secondary: 150 8% 20%;
+    --secondary-foreground: 150 10% 98%;
+
+    --muted: 150 8% 16%;
+    --muted-foreground: 150 15% 65%;
+
+    --accent: 142 60% 35%;
+    --accent-foreground: 150 10% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 150 10% 98%;
+
+    --border: 150 10% 18%;
+    --input: 150 10% 18%;
+    --ring: 142 70% 45%;
+
+    /* Fire Risk Status Colors */
+    --safe: 142 76% 36%;
+    --safe-foreground: 150 10% 98%;
+    --warning: 45 93% 47%;
+    --warning-foreground: 222 84% 5%;
+    --danger: 0 84% 60%;
+    --danger-foreground: 150 10% 98%;
+
+    /* Sensor Data Colors - Environmental theme */
+    --temperature: 14 91% 60%;
+    --humidity: 200 70% 50%;
+    --co2: 262 52% 47%;
+    --co: 39 84% 56%;
+    --hydrogen: 173 58% 39%;
+
+    /* Gradients - Nature inspired */
+    --gradient-primary: linear-gradient(135deg, hsl(142 70% 45%), hsl(160 75% 50%));
+    --gradient-safe: linear-gradient(135deg, hsl(142 76% 36%), hsl(160 84% 39%));
+    --gradient-warning: linear-gradient(135deg, hsl(45 93% 47%), hsl(35 91% 62%));
+    --gradient-danger: linear-gradient(135deg, hsl(0 84% 60%), hsl(0 72% 51%));
+    --gradient-environment: linear-gradient(135deg, hsl(142 70% 25%), hsl(150 50% 15%));
+    
+    /* Glow effects */
+    --glow-primary: 0 0 20px hsl(142 70% 45% / 0.3);
+    --glow-safe: 0 0 20px hsl(142 76% 36% / 0.3);
+    --glow-warning: 0 0 20px hsl(45 93% 47% / 0.3);
+    --glow-danger: 0 0 20px hsl(0 84% 60% / 0.3);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --pulse-danger: pulse-danger 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  /* Fire risk status indicators */
+  .status-safe {
+    @apply bg-gradient-to-r from-safe to-safe/80 text-safe-foreground;
+    box-shadow: var(--glow-safe);
+  }
+  
+  .status-warning {
+    @apply bg-gradient-to-r from-warning to-warning/80 text-warning-foreground;
+    box-shadow: var(--glow-warning);
+  }
+  
+  .status-danger {
+    @apply bg-gradient-to-r from-danger to-danger/80 text-danger-foreground;
+    box-shadow: var(--glow-danger);
+    animation: var(--pulse-danger);
+  }
+
+  /* Sensor cards */
+  .sensor-card {
+    @apply bg-card border border-border rounded-lg p-4 transition-all duration-300 hover:border-primary/30;
+  }
+
+  /* Dashboard grid - Enhanced mobile responsiveness */
+  .dashboard-grid {
+    @apply grid grid-cols-1 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-4 md:gap-6;
+  }
+}
+
+@keyframes pulse-danger {
+  0%, 100% {
+    box-shadow: var(--glow-danger);
+  }
+  50% {
+    box-shadow: 0 0 30px hsl(0 84% 60% / 0.5), 0 0 40px hsl(0 84% 60% / 0.3);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Landing page specific animations */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.8s ease-out forwards;
+}
+
+/* Advanced animations for better visual appeal */
+@keyframes pulse-glow {
+  0%, 100% { 
+    box-shadow: 0 0 5px rgba(16, 185, 129, 0.5);
+  }
+  50% { 
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.8), 0 0 30px rgba(16, 185, 129, 0.3);
+  }
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes bounce-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  animation: shimmer 2s infinite;
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 3s ease-in-out infinite;
+}
+
+.animate-rotate-slow {
+  animation: rotate-slow 20s linear infinite;
+}
+
+/* Staggered animation for children */
+.stagger-children > * {
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+.stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+.stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+.stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+.stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+.stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+
+/* Gradient text animation */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background: linear-gradient(-45deg, #10b981, #3b82f6, #8b5cf6, #10b981);
+  background-size: 400% 400%;
+  animation: gradient-shift 3s ease infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Enhanced glass morphism */
+.glass-card {
+  backdrop-filter: blur(20px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.glass-card:hover::before {
+  left: 100%;
+}
+
+/* Enhanced glass navigation */
+.glass-navbar {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 3D hover effects */
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px) rotateX(5deg) rotateY(5deg);
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1), 
+    0 10px 10px -5px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+/* Particle effects for background */
+.particles-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.particles-bg::before,
+.particles-bg::after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(16, 185, 129, 0.6);
+  border-radius: 50%;
+  animation: float-particles linear infinite;
+}
+
+.particles-bg::before {
+  top: 20%;
+  left: 10%;
+  animation-duration: 8s;
+  animation-delay: 0s;
+}
+
+.particles-bg::after {
+  top: 60%;
+  right: 20%;
+  animation-duration: 12s;
+  animation-delay: 4s;
+}
+
+@keyframes float-particles {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-20px) translateX(10px);
+  }
+}
+
+/* Enhanced Chart Visibility */
+.recharts-line {
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke-opacity: 0.8;
+}
+
+.recharts-tooltip-cursor {
+  stroke-width: 2px;
+  stroke-dasharray: 5 5;
+  stroke-opacity: 0.7;
+}
+
+.recharts-default-tooltip {
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.7));
+}
+
+/* Improve axis visibility */
+.recharts-cartesian-axis-line {
+  stroke-width: 2px;
+  stroke-opacity: 0.8;
+}
+
+.recharts-cartesian-axis-tick-line {
+  stroke-width: 2px;
+  stroke-opacity: 0.8;
+}
+
+/* Pulse animation for active data points */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 15px currentColor);
+  }
+  50% {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 25px currentColor);
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 15px currentColor);
+  }
+}
+
+/* Fade-in animation for chart loading */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Progress bar animations */
+@keyframes progress-fill {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(calc(var(--progress-value, 0%) - 100%)); }
+}
+
+.animate-progress-fill {
+  animation: progress-fill 1.2s ease-out forwards;
+}
