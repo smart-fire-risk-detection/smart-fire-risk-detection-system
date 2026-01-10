@@ -7,6 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/hooks/useAuth";
 import { Leaf, User, Mail, Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import environmentHero from "@/assets/environment-hero.jpg";
 
 export default function Auth() {
@@ -16,6 +18,42 @@ export default function Auth() {
   const [loading, setLoading] = useState(false);
   const { signIn, signUp, user } = useAuth();
   const navigate = useNavigate();
+  const { toast } = useToast();
+
+  // Handle email verification on page load
+  useEffect(() => {
+    const handleEmailVerification = async () => {
+      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const accessToken = hashParams.get('access_token');
+      const type = hashParams.get('type');
+      const error = hashParams.get('error');
+      const errorDescription = hashParams.get('error_description');
+
+      if (error) {
+        console.error('Email verification error:', error, errorDescription);
+        toast({
+          title: "Verification Failed",
+          description: errorDescription || "The email link has expired or is invalid. Please request a new confirmation email.",
+          variant: "destructive",
+        });
+        // Clear the error from URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+        return;
+      }
+
+      if (accessToken && type === 'signup') {
+        console.log('Email verification successful');
+        toast({
+          title: "Email Verified!",
+          description: "Your email has been verified successfully. You can now sign in.",
+        });
+        // Clear the hash from URL
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    };
+
+    handleEmailVerification();
+  }, [toast]);
 
   // Listen for authentication state changes and redirect if user is authenticated
   useEffect(() => {
